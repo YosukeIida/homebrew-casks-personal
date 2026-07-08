@@ -15,6 +15,9 @@ brew install --cask <name>
 |---|---|
 | `zed-dev-ratex` | Personal Zed fork (dev channel) with inline LaTeX/RaTeX math rendering |
 | `claude-science` | Anthropic's Claude Science desktop app (rolling dev build, no official cask yet) |
+| `pindrop` | Menu bar dictation app ([watzon/pindrop](https://github.com/watzon/pindrop)) |
+| `powerglance` | Menu bar power/battery info app ([YosukeIida/PowerGlance](https://github.com/YosukeIida/PowerGlance)) |
+| `nimbus` | Browser for Claude Code workflows ([syllogismos/nimbus](https://github.com/syllogismos/nimbus)) |
 
 Managed declaratively from [dotfiles](https://github.com/YosukeIida/dotfiles)
 via `nix/profiles/darwin/homebrew.nix`.
