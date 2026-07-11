@@ -1,6 +1,6 @@
 cask "powerglance" do
-  version "0.2.1"
-  sha256 "96da1d6549de6ebcf6fd6701046b5ee5c358c0efe6a2d920de4c8854db22baeb"
+  version "0.2.2"
+  sha256 "b213b3d458ccba40659282986dddd2d54341f8eb1700b7969aaf2778a7fc8259"
 
   url "https://github.com/YosukeIida/PowerGlance/releases/download/v#{version}/PowerGlance-#{version}.dmg"
   name "PowerGlance"
