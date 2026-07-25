@@ -1,6 +1,9 @@
 cask "zed-dev-ratex" do
-  version "1.10.0-latex.3"
-  sha256 :no_check
+  # Bump both fields with (no download needed — GitHub reports the asset digest):
+  #   gh api repos/YosukeIida/zed/releases/latest \
+  #     --jq '.tag_name, (.assets[] | select(.name | endswith(".dmg")) | .digest)'
+  version "1.14.0-latex.5"
+  sha256 "1fcd74aa71a70a1d68450119d82b763d1ac0bbe640bd5c5a2a519c6fa3b0b15a"
 
   url "https://github.com/YosukeIida/zed/releases/download/v#{version}/Zed-Dev-RaTeX-unofficial-#{version}-aarch64.dmg"
   name "Zed Dev RaTeX (unofficial)"
