@@ -24,4 +24,17 @@ cask "zed-dev-ratex" do
   depends_on :macos
 
   app "Zed Dev RaTeX(unofficial).app"
+
+  # This build is signed ad-hoc (no Apple Developer certificate), so Gatekeeper
+  # rejects it and the quarantine flag Homebrew sets would block launch after
+  # every weekly update. Clear it for this app only.
+  #
+  # Not done via `--no-quarantine`: Homebrew 6 dropped that CLI flag and only
+  # honours it through HOMEBREW_CASK_OPTS, which would disable quarantine for
+  # every cask on the machine. `brew bundle` also skips per-cask args on its
+  # upgrade path (bundle/cask.rb:75-76), so it would not survive updates anyway.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Zed Dev RaTeX(unofficial).app"]
+  end
 end
