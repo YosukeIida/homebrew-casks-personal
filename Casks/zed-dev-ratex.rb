@@ -29,10 +29,13 @@ cask "zed-dev-ratex" do
   # rejects it and the quarantine flag Homebrew sets would block launch after
   # every weekly update. Clear it for this app only.
   #
-  # Not done via `--no-quarantine`: Homebrew 6 dropped that CLI flag and only
-  # honours it through HOMEBREW_CASK_OPTS, which would disable quarantine for
-  # every cask on the machine. `brew bundle` also skips per-cask args on its
-  # upgrade path (bundle/cask.rb:75-76), so it would not survive updates anyway.
+  # Not done via `--no-quarantine`: Homebrew 6 offers no way to skip quarantine at
+  # install time at all. The CLI flag is gone, and HOMEBREW_CASK_OPTS does not work
+  # either — EnvConfig.cask_opts_quarantine? (env_config.rb:983) has no callers, and
+  # cmd/install.rb:372,420 never passes `quarantine:` to Cask::Installer, so the
+  # hardcoded default of true (installer.rb:42) always wins. `brew bundle` also skips
+  # per-cask args on its upgrade path (bundle/cask.rb:76), so a per-cask arg would not
+  # survive updates anyway. Verified against Homebrew 6.0.12.
   postflight do
     system_command "/usr/bin/xattr",
                    args: ["-dr", "com.apple.quarantine", "#{appdir}/Zed Dev RaTeX(unofficial).app"]
