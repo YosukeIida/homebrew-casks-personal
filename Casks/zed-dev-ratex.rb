@@ -29,15 +29,19 @@ cask "zed-dev-ratex" do
   # rejects it and the quarantine flag Homebrew sets would block launch after
   # every weekly update. Clear it for this app only.
   #
-  # Not done via `--no-quarantine`: Homebrew 6 offers no way to skip quarantine at
-  # install time at all. The CLI flag is gone, and HOMEBREW_CASK_OPTS does not work
-  # either — EnvConfig.cask_opts_quarantine? (env_config.rb:983) has no callers, and
-  # cmd/install.rb:372,420 never passes `quarantine:` to Cask::Installer, so the
-  # hardcoded default of true (installer.rb:42) always wins. `brew bundle` also skips
-  # per-cask args on its upgrade path (bundle/cask.rb:76), so a per-cask arg would not
-  # survive updates anyway. Verified against Homebrew 6.0.12.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Zed Dev RaTeX(unofficial).app"]
+  # Not done via `--no-quarantine`: Homebrew offers no way to skip quarantine at
+  # install time at all. The CLI flag and the HOMEBREW_CASK_OPTS knob are both gone
+  # (env_config.rb has no quarantine entry left), and Cask::Download applies it
+  # unconditionally (download.rb:255, `Quarantine.cask!`), so no per-cask or
+  # per-invocation opt-out remains. `brew bundle` also drops per-cask args on its
+  # upgrade path (bundle/cask.rb:76), so a per-cask arg would not survive updates
+  # anyway. Verified against Homebrew 7.0.1.
+  #
+  # Uses `postflight_steps`, not the `postflight` block (deprecated in Homebrew 7.0):
+  # steps are declarative and run inside Homebrew's sandbox, which already grants
+  # write access to appdir. Args are template-expanded, hence `{{appdir}}`.
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args: ["-dr", "com.apple.quarantine", "{{appdir}}/Zed Dev RaTeX(unofficial).app"]
   end
 end

@@ -3,12 +3,10 @@ cask "claude-science" do
   sha256 :no_check
 
   on_arm do
-    url "https://downloads.claude.ai/claude-science/latest/mac-arm64.dmg",
-        verified: "downloads.claude.ai/claude-science/"
+    url "https://downloads.claude.ai/claude-science/latest/mac-arm64.dmg"
   end
   on_intel do
-    url "https://downloads.claude.ai/claude-science/latest/mac-x64.dmg",
-        verified: "downloads.claude.ai/claude-science/"
+    url "https://downloads.claude.ai/claude-science/latest/mac-x64.dmg"
   end
 
   name "Claude Science"
