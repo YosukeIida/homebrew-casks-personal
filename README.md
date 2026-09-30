@@ -62,7 +62,7 @@ brew install --cask yosukeiida/casks-personal/codex
 ```
 
 After that, plain `brew upgrade` picks it up. `version` and `sha256` are bumped
-every 6 hours by `.github/workflows/bump-codex.yml`, using the SHA-256 digests
+every hour by `.github/workflows/bump-codex.yml`, using the SHA-256 digests
 that GitHub publishes for the release assets. Unlike `homebrew/cask`, those
 bumps are not reviewed by a person; you are trusting the upstream release and
 this workflow.
