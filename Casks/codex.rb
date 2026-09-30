@@ -1,7 +1,7 @@
 cask "codex" do
   arch arm: "aarch64", intel: "x86_64"
 
-  # Bumped by .github/workflows/bump-codex.yml (scripts/bump-codex.sh).
+  # Bumped by .github/workflows/bump.yml (scripts/bump-codex.sh).
   version "0.159.2"
   sha256 arm:   "38aaf6dce63099fd10988948d03bbc6c0474253aef6961fcbe60f8d154b39101",
          intel: "6b9b38bfad6ac8019aa6a243ee3ab11d3e22889eafd5458b0344cf20e797e680"

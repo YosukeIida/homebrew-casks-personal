@@ -10,11 +10,23 @@ brew tap yosukeiida/casks-personal
 brew install --cask <name>
 ```
 
+**`brew upgrade` or the first launch of `codex` / `claude` stuck on a
+"downloaded from the Internet" dialog?** Switch both to this tap's casks once
+(settings and logins in `~/.codex` / `~/.claude` are kept):
+
+```
+brew uninstall --cask codex claude-code claude-code@latest
+brew install --cask yosukeiida/casks-personal/codex yosukeiida/casks-personal/claude-code@latest
+```
+
+After that, plain `brew upgrade` keeps them current with no dialog.
+
 ## Casks
 
 | Cask | What it is |
 |---|---|
 | `codex` | OpenAI Codex CLI — the official cask plus a quarantine fix (see below) |
+| `claude-code@latest` | Claude Code (latest channel) — the official cask plus the same quarantine fix |
 | `zed-dev-ratex` | Personal Zed fork (dev channel) with inline LaTeX/RaTeX math rendering |
 | `claude-science` | Anthropic's Claude Science desktop app (rolling dev build, no official cask yet) |
 | `pindrop` | Menu bar dictation app ([watzon/pindrop](https://github.com/watzon/pindrop)) |
@@ -62,18 +74,23 @@ brew install --cask yosukeiida/casks-personal/codex
 ```
 
 After that, plain `brew upgrade` picks it up. `version` and `sha256` are bumped
-every hour by `.github/workflows/bump-codex.yml`, using the SHA-256 digests
+every hour by `.github/workflows/bump.yml`, using the SHA-256 digests
 that GitHub publishes for the release assets. Unlike `homebrew/cask`, those
 bumps are not reviewed by a person; you are trusting the upstream release and
 this workflow.
 
-### Claude Code (not in this tap)
+## `claude-code@latest`: dialog on the first launch after each upgrade
 
 The official `claude-code` / `claude-code@latest` cask never runs `claude`
-during install, so `brew upgrade` does not hang. The dialog still appears the
-first time you launch `claude` after each upgrade, which also blocks over SSH.
-Clear the attribute before launching:
+during install, so `brew upgrade` does not hang. But the installed binary is
+still quarantined, so the first launch of `claude` after each upgrade shows the
+same dialog and waits for a click; over SSH, or when an agent runner starts
+`claude`, it just hangs.
 
-```
-xattr -d com.apple.quarantine "$(readlink -f "$(command -v claude)")"
-```
+This tap's `claude-code@latest` is the official cask plus the same
+`preflight_steps` block, so the attribute is gone before `claude` is ever
+launched, whatever starts it. The payload is the same
+`downloads.claude.ai/claude-code-releases` binary; `version` and `sha256` are
+bumped every hour by `.github/workflows/bump.yml` from that release's
+`manifest.json`, again without human review. Only the latest channel is
+provided (no stable `claude-code`).

@@ -1,0 +1,40 @@
+name: bump casks
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: codex
+        run: scripts/bump-codex.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # codex の bump が失敗しても claude-code は進める（job は失敗のまま残る）。
+      - id: claude
+        if: ${{ !cancelled() }}
+        run: scripts/bump-claude-code.sh
+
+      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '') }}
+        env:
+          CODEX: ${{ steps.codex.outputs.version }}
+          CLAUDE: ${{ steps.claude.outputs.version }}
+        run: |
+          parts=()
+          [[ -n "$CODEX" ]] && parts+=("codex to $CODEX")
+          [[ -n "$CLAUDE" ]] && parts+=("claude-code@latest to $CLAUDE")
+          msg="feat: update $(IFS=,; echo "${parts[*]}" | sed 's/,/, /g')"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks
+          git commit -m "$msg"
+          git push
