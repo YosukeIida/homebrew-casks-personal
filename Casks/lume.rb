@@ -2,8 +2,7 @@ cask "lume" do
   version "0.6.0"
   sha256 "4d25c7c36ebd3fdf0e2f97f9e7a2c4ff2d0538ba9eb2d536f6dbb542d9d504a7"
 
-  url "https://github.com/trycua/cua/releases/download/lume-v#{version}/lume-#{version}-darwin-arm64.tar.gz",
-      verified: "github.com/trycua/cua/"
+  url "https://github.com/trycua/cua/releases/download/lume-v#{version}/lume-#{version}-darwin-arm64.tar.gz"
   name "Lume"
   desc "CLI and local API server for macOS and Linux VMs on Apple Silicon"
   homepage "https://cua.ai/docs/lume"
