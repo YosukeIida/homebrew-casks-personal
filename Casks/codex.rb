@@ -2,9 +2,9 @@ cask "codex" do
   arch arm: "aarch64", intel: "x86_64"
 
   # Bumped by .github/workflows/bump.yml (scripts/bump-codex.sh).
-  version "0.160.0"
-  sha256 arm:   "007df41b607dbbc8d204b9746ce7fed2d4ce6c813f44c32ceee54175ca796525",
-         intel: "4d50514b2d8acd81ca8cfee55b667b3dc4f7681b65bf3299ff06b11a064f8861"
+  version "0.160.1"
+  sha256 arm:   "f73527ee09c6db869acbb37b709866b339ea74ef91d2de255e9c74ec960c6314",
+         intel: "a98f330c9b1652cef2edc7bc2ee4c47a0fe19fa098b686381be3c8842abf0ac0"
 
   url "https://github.com/openai/codex/releases/download/rust-v#{version}/codex-package-#{arch}-apple-darwin.tar.gz"
   name "Codex"
