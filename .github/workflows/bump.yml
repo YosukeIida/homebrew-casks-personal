@@ -24,14 +24,20 @@ jobs:
         if: ${{ !cancelled() }}
         run: scripts/bump-claude-code.sh
 
-      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '') }}
+      - id: herdr
+        if: ${{ !cancelled() }}
+        run: scripts/bump-herdr.sh
+
+      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '' || steps.herdr.outputs.version != '') }}
         env:
           CODEX: ${{ steps.codex.outputs.version }}
           CLAUDE: ${{ steps.claude.outputs.version }}
+          HERDR: ${{ steps.herdr.outputs.version }}
         run: |
           parts=()
           [[ -n "$CODEX" ]] && parts+=("codex to $CODEX")
           [[ -n "$CLAUDE" ]] && parts+=("claude-code@latest to $CLAUDE")
+          [[ -n "$HERDR" ]] && parts+=("$HERDR")
           msg="feat: update $(IFS=,; echo "${parts[*]}" | sed 's/,/, /g')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
