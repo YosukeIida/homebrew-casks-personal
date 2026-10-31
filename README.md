@@ -32,6 +32,14 @@ After that, plain `brew upgrade` keeps them current with no dialog.
 | `pindrop` | Menu bar dictation app ([watzon/pindrop](https://github.com/watzon/pindrop)) |
 | `powerglance` | Menu bar power/battery info app ([YosukeIida/PowerGlance](https://github.com/YosukeIida/PowerGlance)) |
 | `nimbus` | Browser for Claude Code workflows ([syllogismos/nimbus](https://github.com/syllogismos/nimbus)) |
+| `herdr-app` | Herdr desktop app ([herdr.dev](https://herdr.dev/)); depends on the `herdr-core` formula |
+
+## Formulae
+
+| Formula | What it is |
+|---|---|
+| `backlog-md` | Backlog.md CLI as the native binary, without the Node.js shim |
+| `herdr-core` | herdr-core terminal runtime (`hc`), the official prebuilt binary |
 
 Managed declaratively from [dotfiles](https://github.com/YosukeIida/dotfiles)
 via `nix/profiles/darwin/homebrew.nix`. Nothing here depends on Nix.

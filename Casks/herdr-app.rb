@@ -19,7 +19,7 @@ cask "herdr-app" do
   # herdr-core with it, so brew only does the first install.
   auto_updates true
   depends_on arch: :arm64
-  depends_on cask: "herdr-core"
+  depends_on formula: "yosukeiida/casks-personal/herdr-core"
   depends_on :macos
 
   # No official tap or cask exists; the official install.sh puts the bundle in
