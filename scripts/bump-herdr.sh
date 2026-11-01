@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Casks/herdr-app.rb と Formula/herdr-core.rb を releases.herdr.dev の latest に揃える。
+# Casks/herdr-app.rb を releases.herdr.dev の latest に揃える（herdr-core は brew の外で入れる）。
 # sha256 は配布元の latest.json が target ごとに返す値を使うので、ダウンロードは不要。
 # 既に最新なら何もしない。GITHUB_OUTPUT があれば更新したものを "name to version" で書く。
 set -euo pipefail
@@ -17,7 +17,7 @@ sha() {
   echo "$s"
 }
 
-# $1: cask / formula のファイル, $2: manifest のパス（app / core）
+# $1: cask のファイル, $2: manifest のパス（app）
 bump() {
   local file="$1" name manifest version current arm intel
   name="$(basename "$file" .rb)"
@@ -35,18 +35,10 @@ bump() {
 
   arm="$(sha "$manifest" macos-aarch64)"
   sed -i.bak -E "s/^  version \"[^\"]+\"$/  version \"$version\"/" "$file"
-  if [[ "$file" == Formula/* ]]; then
-    # formula の url は版を直書きする（cask と違い #{version} を使わない）。
-    sed -i.bak -E \
-      -e "s#/$2/$current/#/$2/$version/#" \
-      -e "s/^  sha256 \"[0-9a-f]{64}\"/  sha256 \"$arm\"/" \
-      "$file"
-  else
-    sed -i.bak -E "s/^(  sha256 (arm: +)?)\"[0-9a-f]{64}\"/\1\"$arm\"/" "$file"
-    if grep -q '^         intel: ' "$file"; then
-      intel="$(sha "$manifest" macos-x86_64)"
-      sed -i.bak -E "s/^(         intel: )\"[0-9a-f]{64}\"/\1\"$intel\"/" "$file"
-    fi
+  sed -i.bak -E "s/^(  sha256 (arm: +)?)\"[0-9a-f]{64}\"/\1\"$arm\"/" "$file"
+  if grep -q '^         intel: ' "$file"; then
+    intel="$(sha "$manifest" macos-x86_64)"
+    sed -i.bak -E "s/^(         intel: )\"[0-9a-f]{64}\"/\1\"$intel\"/" "$file"
   fi
   rm -f "$file.bak"
 
@@ -61,7 +53,6 @@ bump() {
 
 updated=()
 bump Casks/herdr-app.rb app
-bump Formula/herdr-core.rb core
 
 if [[ -n "${GITHUB_OUTPUT:-}" && ${#updated[@]} -gt 0 ]]; then
   echo "version=$(IFS=,; echo "${updated[*]}" | sed 's/,/, /g')" >>"$GITHUB_OUTPUT"
