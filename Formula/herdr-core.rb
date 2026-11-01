@@ -4,9 +4,9 @@ class HerdrCore < Formula
   # Not built from source: it vendors ghostty as a submodule (Rust + Zig), and
   # without bottles every bump would rebuild it locally.
   # Bumped by .github/workflows/bump.yml (scripts/bump-herdr.sh).
-  url "https://releases.herdr.dev/core/0.1.15/herdr-core-macos-aarch64.tar.gz"
-  version "0.1.15"
-  sha256 "47eba8367e0626a1efced8795fcb03d5434b2541c5a84d78c50cc02c8fb49fc8"
+  url "https://releases.herdr.dev/core/0.1.16/herdr-core-macos-aarch64.tar.gz"
+  version "0.1.16"
+  sha256 "698d8f0c44f4e4b15fec174d52a39d57a014cfd71added44b53a0753b469d0fd"
   license "Apache-2.0"
 
   livecheck do
