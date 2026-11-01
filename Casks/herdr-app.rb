@@ -16,8 +16,9 @@ cask "herdr-app" do
   end
 
   # The app updates itself in place (Settings -> Updates), so brew only does the
-  # first install. herdr-core is installed and updated outside brew, in
-  # ~/.local/bin, so the app does not depend on it here.
+  # first install. herdr-core is installed and updated outside brew (in
+  # ~/.local/share/herdr-core/Cellar, linked from ~/.local/bin), so the app does
+  # not depend on it here.
   auto_updates true
   depends_on arch: :arm64
   depends_on :macos
