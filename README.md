@@ -39,6 +39,7 @@ After that, plain `brew upgrade` keeps them current with no dialog.
 | Formula | What it is |
 |---|---|
 | `backlog-md` | Backlog.md CLI as the native binary, without the Node.js shim |
+| `ratex` | [RaTeX](https://github.com/erweixin/RaTeX)'s SVG renderer as `ratex-svg` (LaTeX math to SVG; arm64 macOS prebuilt) |
 
 Managed declaratively from [dotfiles](https://github.com/YosukeIida/dotfiles)
 via `nix/profiles/darwin/homebrew.nix`. Nothing here depends on Nix.
