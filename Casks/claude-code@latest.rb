@@ -2,9 +2,9 @@ cask "claude-code@latest" do
   arch arm: "arm64", intel: "x64"
 
   # Bumped by .github/workflows/bump.yml (scripts/bump-claude-code.sh).
-  version "2.1.327"
-  sha256 arm:   "76d48205c926c8a6978cfc2171b631bcd01e20bbadd085638bb2ec57bea91c5b",
-         intel: "1fe75c05df7be824af1ed80ff9ccdf2be991f3a2212b97e05fc9a3bff2f39ef9"
+  version "2.1.328"
+  sha256 arm:   "e85547190ef8cd983033ba61b17194045a6fea00035da349efeabed86badacc9",
+         intel: "bf40a5555c01e6afe6c028fbe0782f93580f4f0835fd5d13022e039ec76507e1"
 
   url "https://downloads.claude.ai/claude-code-releases/#{version}/darwin-#{arch}/claude"
   name "Claude Code"
