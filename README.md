@@ -33,6 +33,7 @@ After that, plain `brew upgrade` keeps them current with no dialog.
 | `powerglance` | Menu bar power/battery info app ([YosukeIida/PowerGlance](https://github.com/YosukeIida/PowerGlance)) |
 | `nimbus` | Browser for Claude Code workflows ([syllogismos/nimbus](https://github.com/syllogismos/nimbus)) |
 | `herdr-app` | Herdr desktop app ([herdr.dev](https://herdr.dev/)) |
+| `omlx` | oMLX menu bar app and LLM server ([jundot/omlx](https://github.com/jundot/omlx)), the DMG instead of the source-built formula |
 
 ## Formulae
 
