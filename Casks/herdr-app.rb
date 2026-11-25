@@ -1,7 +1,7 @@
 cask "herdr-app" do
   # Bumped by .github/workflows/bump.yml (scripts/bump-herdr.sh).
-  version "0.1.17"
-  sha256 "e0341679ed38162ba920b623c9f27bdd866f3bf7f4ae0dc08398503db4e1137a"
+  version "0.1.18"
+  sha256 "fd646b4a6db2c3e9b4700be7d10153440cb799c960b082d4ab60a5fd63f9372a"
 
   url "https://releases.herdr.dev/app/#{version}/herdr-app-macos-aarch64.tar.gz"
   name "Herdr"
