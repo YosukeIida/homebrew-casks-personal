@@ -1,7 +1,7 @@
 cask "ararat" do
   # Bumped by .github/workflows/bump.yml (scripts/bump-ararat.sh), preview releases included.
-  version "0.0.2-preview.3"
-  sha256 "7eb6c92ba5d488c63b53d334a90ce9c081cffabbe528386107bdd053720b102c"
+  version "0.0.2-preview.4"
+  sha256 "d6378c06ed5ec04e3549bdeb3af3a568364f054b52facb7134cde87623f99bfa"
 
   url "https://github.com/YosukeIida/ararat/releases/download/v#{version}/Ararat-#{version}.zip"
   name "Ararat"
