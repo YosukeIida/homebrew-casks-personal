@@ -40,13 +40,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '' || steps.herdr.outputs.version != '' || steps.ratex.outputs.version != '' || steps.omlx.outputs.version != '') }}
+      - id: ararat
+        if: ${{ !cancelled() }}
+        run: scripts/bump-ararat.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '' || steps.herdr.outputs.version != '' || steps.ratex.outputs.version != '' || steps.omlx.outputs.version != '' || steps.ararat.outputs.version != '') }}
         env:
           CODEX: ${{ steps.codex.outputs.version }}
           CLAUDE: ${{ steps.claude.outputs.version }}
           HERDR: ${{ steps.herdr.outputs.version }}
           RATEX: ${{ steps.ratex.outputs.version }}
           OMLX: ${{ steps.omlx.outputs.version }}
+          ARARAT: ${{ steps.ararat.outputs.version }}
         run: |
           parts=()
           [[ -n "$CODEX" ]] && parts+=("codex to $CODEX")
@@ -54,6 +61,7 @@ jobs:
           [[ -n "$HERDR" ]] && parts+=("$HERDR")
           [[ -n "$RATEX" ]] && parts+=("ratex to $RATEX")
           [[ -n "$OMLX" ]] && parts+=("$OMLX")
+          [[ -n "$ARARAT" ]] && parts+=("$ARARAT")
           msg="feat: update $(IFS=,; echo "${parts[*]}" | sed 's/,/, /g')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
