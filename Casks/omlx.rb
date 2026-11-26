@@ -1,7 +1,7 @@
 cask "omlx" do
   # Bumped by .github/workflows/bump.yml (scripts/bump-omlx.sh).
-  version "0.8.3"
-  sha256 "a3985ac20f53a5a9a1656ec19353e00ff0a628aae1285bfa5164fd600217af07"
+  version "0.8.4"
+  sha256 "445c3d42b1ac5dbdd1d8f1eadca0ad4e35dded846026b3ca3d8537dd7ce08a0b"
 
   url "https://github.com/jundot/omlx/releases/download/v#{version}/oMLX-#{version}-macos26-27.dmg"
   name "oMLX"
