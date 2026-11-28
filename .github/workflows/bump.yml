@@ -42,11 +42,17 @@ jobs:
 
       - id: ararat
         if: ${{ !cancelled() }}
-        run: scripts/bump-ararat.sh
+        run: scripts/bump-ararat.sh stable
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '' || steps.herdr.outputs.version != '' || steps.ratex.outputs.version != '' || steps.omlx.outputs.version != '' || steps.ararat.outputs.version != '') }}
+      - id: ararat_preview
+        if: ${{ !cancelled() }}
+        run: scripts/bump-ararat.sh preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - if: ${{ !cancelled() && (steps.codex.outputs.version != '' || steps.claude.outputs.version != '' || steps.herdr.outputs.version != '' || steps.ratex.outputs.version != '' || steps.omlx.outputs.version != '' || steps.ararat.outputs.version != '' || steps.ararat_preview.outputs.version != '') }}
         env:
           CODEX: ${{ steps.codex.outputs.version }}
           CLAUDE: ${{ steps.claude.outputs.version }}
@@ -54,6 +60,7 @@ jobs:
           RATEX: ${{ steps.ratex.outputs.version }}
           OMLX: ${{ steps.omlx.outputs.version }}
           ARARAT: ${{ steps.ararat.outputs.version }}
+          ARARAT_PREVIEW: ${{ steps.ararat_preview.outputs.version }}
         run: |
           parts=()
           [[ -n "$CODEX" ]] && parts+=("codex to $CODEX")
@@ -62,6 +69,7 @@ jobs:
           [[ -n "$RATEX" ]] && parts+=("ratex to $RATEX")
           [[ -n "$OMLX" ]] && parts+=("$OMLX")
           [[ -n "$ARARAT" ]] && parts+=("$ARARAT")
+          [[ -n "$ARARAT_PREVIEW" ]] && parts+=("$ARARAT_PREVIEW")
           msg="feat: update $(IFS=,; echo "${parts[*]}" | sed 's/,/, /g')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
